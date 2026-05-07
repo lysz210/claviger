@@ -1,0 +1,23 @@
+
+
+strava:
+  base-url: https://www.strava.com
+  oauth:
+    client-id: ${STRAVA_CLIENT_ID}
+    secret: ${STRAVA_CLIENT_SECRET}
+
+quarkus:
+  keycloak:
+    devservices:
+      enabled: false
+  rest-client:
+    strava-v3:
+      url: ${strava.base-url}
+      logging:
+        scope: all
+        body-limit: 10240
+
+  log:
+    category:
+      "io.quarkus.rest.client.reactive":
+        level: DEBUG
