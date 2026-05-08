@@ -1,4 +1,4 @@
-package it.lysz210.akasha
+package it.lysz210.akasha.claviger
 
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given

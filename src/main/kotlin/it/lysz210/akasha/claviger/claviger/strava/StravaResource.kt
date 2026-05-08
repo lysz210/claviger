@@ -1,7 +1,7 @@
-package it.lysz210.akasha.strava
+package it.lysz210.akasha.claviger.claviger.strava
 
 import io.smallrye.mutiny.Uni
-import it.lysz210.akasha.strava.client.dto.Athlete
+import it.lysz210.akasha.claviger.claviger.strava.client.dto.Athlete
 import jakarta.ws.rs.Consumes
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.NotAuthorizedException
@@ -10,7 +10,6 @@ import jakarta.ws.rs.Produces
 import jakarta.ws.rs.QueryParam
 import jakarta.ws.rs.core.Context
 import jakarta.ws.rs.core.MediaType
-import jakarta.ws.rs.core.Response
 import jakarta.ws.rs.core.UriInfo
 import org.jboss.resteasy.reactive.RestResponse
 import java.net.URI
