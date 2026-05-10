@@ -3,7 +3,7 @@ package it.lysz210.akasha.claviger.strava
 import io.smallrye.config.ConfigMapping
 
 @ConfigMapping(prefix = "strava")
-interface StravaConfig {
+interface StravaProperties {
     fun baseUrl(): String
 
     fun oauth(): Oauth

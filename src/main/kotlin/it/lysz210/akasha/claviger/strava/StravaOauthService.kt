@@ -12,7 +12,7 @@ import java.net.URI
 
 @ApplicationScoped
 class StravaOauthService (
-    private val stravaConfig: StravaConfig,
+    private val stravaProperties: StravaProperties,
     @RestClient private val stravaClient: StravaOauthV3,
 ) {
     private var _token: TokenInfo? = null
@@ -26,9 +26,9 @@ class StravaOauthService (
             Uni.createFrom().nullItem()
         } else {
             val authorizeUri = UriBuilder
-                .fromUri("${this.stravaConfig.baseUrl()}/oauth/authorize")
-                .queryParam("client_id", this.stravaConfig.oauth().clientId())
-                .queryParam("client_secret", this.stravaConfig.oauth().secret())
+                .fromUri("${this.stravaProperties.baseUrl()}/oauth/authorize")
+                .queryParam("client_id", this.stravaProperties.oauth().clientId())
+                .queryParam("client_secret", this.stravaProperties.oauth().secret())
                 .queryParam("redirect_uri", callbackUri.toString())
                 .queryParam("response_type", "code")
                 .queryParam("approval_prompt", "auto")
@@ -40,8 +40,8 @@ class StravaOauthService (
     fun exchangeCodeForAccessToken(code: String): Uni<TokenInfo> {
         val codeRequest = AuthorizationCodeRequest(
             code = code,
-            clientId = this.stravaConfig.oauth().clientId(),
-            clientSecret = this.stravaConfig.oauth().secret(),
+            clientId = this.stravaProperties.oauth().clientId(),
+            clientSecret = this.stravaProperties.oauth().secret(),
         )
 
         return this.stravaClient.token(codeRequest)

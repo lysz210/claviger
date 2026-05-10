@@ -6,6 +6,9 @@ strava:
     client-id: ${STRAVA_CLIENT_ID}
     secret: ${STRAVA_CLIENT_SECRET}
 
+capacnan:
+  bucket-name: claviger
+
 quarkus:
   keycloak:
     devservices:
@@ -16,7 +19,10 @@ quarkus:
       logging:
         scope: all
         body-limit: 10240
-
+  messaging:
+    nats:
+      connection:
+        url: nats:localhost:4222
   log:
     category:
       "io.quarkus.rest.client.reactive":
