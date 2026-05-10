@@ -1,7 +1,7 @@
-package it.lysz210.akasha.claviger.claviger.strava
+package it.lysz210.akasha.claviger.strava
 
 import io.smallrye.mutiny.Uni
-import it.lysz210.akasha.claviger.claviger.strava.client.dto.Athlete
+import it.lysz210.akasha.claviger.strava.client.dto.Athlete
 import jakarta.ws.rs.Consumes
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.NotAuthorizedException

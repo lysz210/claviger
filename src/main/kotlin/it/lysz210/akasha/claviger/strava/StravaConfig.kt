@@ -1,4 +1,4 @@
-package it.lysz210.akasha.claviger.claviger.strava
+package it.lysz210.akasha.claviger.strava
 
 import io.smallrye.config.ConfigMapping
 

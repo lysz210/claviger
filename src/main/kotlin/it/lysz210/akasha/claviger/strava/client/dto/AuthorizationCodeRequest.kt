@@ -1,4 +1,4 @@
-package it.lysz210.akasha.claviger.claviger.strava.client.dto
+package it.lysz210.akasha.claviger.strava.client.dto
 
 import org.jboss.resteasy.reactive.RestForm
 

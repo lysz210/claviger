@@ -1,10 +1,10 @@
-package it.lysz210.akasha.claviger.claviger.strava
+package it.lysz210.akasha.claviger.strava
 
 import io.smallrye.mutiny.Uni
-import it.lysz210.akasha.claviger.claviger.strava.client.StravaOauthV3
-import it.lysz210.akasha.claviger.claviger.strava.client.dto.Athlete
-import it.lysz210.akasha.claviger.claviger.strava.client.dto.AuthorizationCodeRequest
-import it.lysz210.akasha.claviger.claviger.strava.client.dto.TokenInfo
+import it.lysz210.akasha.claviger.strava.client.StravaOauthV3
+import it.lysz210.akasha.claviger.strava.client.dto.Athlete
+import it.lysz210.akasha.claviger.strava.client.dto.AuthorizationCodeRequest
+import it.lysz210.akasha.claviger.strava.client.dto.TokenInfo
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.ws.rs.core.UriBuilder
 import org.eclipse.microprofile.rest.client.inject.RestClient
