@@ -1,10 +1,10 @@
-package it.lysz210.akasha.claviger.strava.client.v3
+package com.strava.api.v3
 
+import com.strava.api.v3.dto.AuthorizationCodeRequest
+import com.strava.api.v3.dto.AuthorizationCodeResponse
+import com.strava.api.v3.dto.AuthorizationRefreshRequest
+import com.strava.api.v3.dto.TokenInfo
 import io.smallrye.mutiny.Uni
-import it.lysz210.akasha.claviger.strava.client.v3.dto.AuthorizationCodeRequest
-import it.lysz210.akasha.claviger.strava.client.v3.dto.AuthorizationCodeResponse
-import it.lysz210.akasha.claviger.strava.client.v3.dto.AuthorizationRefreshRequest
-import it.lysz210.akasha.claviger.strava.client.v3.dto.TokenInfo
 import jakarta.ws.rs.BeanParam
 import jakarta.ws.rs.Consumes
 import jakarta.ws.rs.POST

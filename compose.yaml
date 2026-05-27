@@ -1,0 +1,15 @@
+
+services:
+  capacnan:
+    image: nats:latest
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    command: ["-js", "--sd", "/data"]
+    volumes:
+      - .volumes/capacnan:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8222/healthz"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

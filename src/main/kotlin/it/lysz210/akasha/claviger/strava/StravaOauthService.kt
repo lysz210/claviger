@@ -6,11 +6,11 @@ import io.smallrye.mutiny.Uni
 import it.lysz210.akasha.capacnan.quipus.credentials.Quipucamayoc
 import it.lysz210.akasha.capacnan.quipus.credentials.oauth2Flow
 import it.lysz210.akasha.capacnan.quipus.credentials.secretData
-import it.lysz210.akasha.claviger.strava.client.v3.StravaOauthV3
-import it.lysz210.akasha.claviger.strava.client.v3.dto.Athlete
-import it.lysz210.akasha.claviger.strava.client.v3.dto.AuthorizationCodeRequest
-import it.lysz210.akasha.claviger.strava.client.v3.dto.AuthorizationRefreshRequest
-import it.lysz210.akasha.claviger.strava.client.v3.dto.TokenInfo
+import com.strava.api.v3.StravaOauthV3
+import com.strava.api.v3.dto.Athlete
+import com.strava.api.v3.dto.AuthorizationCodeRequest
+import com.strava.api.v3.dto.AuthorizationRefreshRequest
+import com.strava.api.v3.dto.TokenInfo
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.ws.rs.core.UriBuilder
 import org.eclipse.microprofile.rest.client.inject.RestClient
