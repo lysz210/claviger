@@ -22,7 +22,7 @@ quarkus:
   messaging:
     nats:
       connection:
-        url: nats:localhost:4222
+        url: "${CAPACNAN_SERVER_URI:nats://localhost:4222}"
   log:
     category:
       "io.quarkus.rest.client.reactive":

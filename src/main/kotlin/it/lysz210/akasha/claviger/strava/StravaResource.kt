@@ -1,7 +1,7 @@
 package it.lysz210.akasha.claviger.strava
 
 import io.smallrye.mutiny.Uni
-import it.lysz210.akasha.claviger.strava.client.dto.Athlete
+import it.lysz210.akasha.claviger.strava.client.v3.dto.Athlete
 import jakarta.ws.rs.Consumes
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.NotAuthorizedException
@@ -24,6 +24,10 @@ class StravaResource (
     @GET
     fun info(): Athlete = stravaAuthService.athlete
         ?: throw NotAuthorizedException("Strava")
+
+    @GET
+    @Path("/token")
+    fun token() = stravaAuthService.token
 
     @GET
     @Path("/login")

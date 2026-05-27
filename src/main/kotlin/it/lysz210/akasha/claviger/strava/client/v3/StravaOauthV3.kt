@@ -1,10 +1,10 @@
-package it.lysz210.akasha.claviger.strava.client
+package it.lysz210.akasha.claviger.strava.client.v3
 
 import io.smallrye.mutiny.Uni
-import it.lysz210.akasha.claviger.strava.client.dto.AuthorizationCodeRequest
-import it.lysz210.akasha.claviger.strava.client.dto.AuthorizationCodeResponse
-import it.lysz210.akasha.claviger.strava.client.dto.AuthorizationRefreshRequest
-import it.lysz210.akasha.claviger.strava.client.dto.TokenInfo
+import it.lysz210.akasha.claviger.strava.client.v3.dto.AuthorizationCodeRequest
+import it.lysz210.akasha.claviger.strava.client.v3.dto.AuthorizationCodeResponse
+import it.lysz210.akasha.claviger.strava.client.v3.dto.AuthorizationRefreshRequest
+import it.lysz210.akasha.claviger.strava.client.v3.dto.TokenInfo
 import jakarta.ws.rs.BeanParam
 import jakarta.ws.rs.Consumes
 import jakarta.ws.rs.POST
@@ -28,5 +28,5 @@ interface StravaOauthV3 {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     fun refresh(
         @BeanParam form: AuthorizationRefreshRequest
-    ): TokenInfo
+    ): Uni<TokenInfo>
 }
