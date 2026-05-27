@@ -1,7 +1,8 @@
-package it.lysz210.akasha.claviger.strava
+package it.lysz210.akasha.claviger.api
 
 import io.smallrye.mutiny.Uni
-import com.strava.api.v3.dto.Athlete
+import it.lysz210.akasha.claviger.domain.StravaOauthService
+import it.lysz210.akasha.claviger.domain.model.Athlete
 import jakarta.ws.rs.Consumes
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.NotAuthorizedException
@@ -27,7 +28,7 @@ class StravaResource (
 
     @GET
     @Path("/token")
-    fun token() = stravaAuthService.token
+    fun token() = stravaAuthService.credential
 
     @GET
     @Path("/login")

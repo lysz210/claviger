@@ -11,9 +11,8 @@ capacnan:
     credentials: claviger
 
 quarkus:
-  keycloak:
-    devservices:
-      enabled: false
+  devservices:
+    enabled: false
   rest-client:
     strava-v3:
       url: ${strava.base-url}
@@ -31,7 +30,14 @@ quarkus:
           storage-type: file
           description: "Claviger: The credentials store"
 
-  log:
-    category:
-      "io.quarkus.rest.client.reactive":
-        level: DEBUG
+'%dev':
+  quarkus:
+    #    compose:
+    #      devservices:
+    #        files:
+    #          - compose-nats.yml
+    log:
+      #      level: DEBUG
+      category:
+        "io.quarkus.rest.client.reactive":
+          level: DEBUG

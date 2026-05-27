@@ -4,4 +4,5 @@ package it.lysz210.akasha.claviger.domain.model
 data class Credential(
     val key: Key,
     val authentication: Authorization,
+    val athlete: Athlete? = null,
 )
