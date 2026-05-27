@@ -1,4 +1,4 @@
-package it.lysz210.akasha.claviger.capacnan
+package it.lysz210.akasha.claviger.infrastructure.capacnan
 
 import io.nats.client.Connection
 import io.nats.client.JetStreamApiException
@@ -28,7 +28,7 @@ class Config (
     @ApplicationScoped
     fun credentialsBucket(nats: Connection): KeyValue {
 
-        val bucketName = capacnanProperties.bucketName()
+        val bucketName = capacnanProperties.buckets().credentials()
 
         try {
             nats.keyValueManagement().create(

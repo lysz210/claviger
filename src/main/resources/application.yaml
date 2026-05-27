@@ -7,7 +7,8 @@ strava:
     secret: ${STRAVA_CLIENT_SECRET}
 
 capacnan:
-  bucket-name: claviger
+  buckets:
+    credentials: claviger
 
 quarkus:
   keycloak:
@@ -22,7 +23,14 @@ quarkus:
   messaging:
     nats:
       connection:
-        url: "${CAPACNAN_SERVER_URI:nats://localhost:4222}"
+        servers:
+          - "${CAPACNAN_SERVER_URI:nats://localhost:4222}"
+      key-value-stores:
+        claviger:
+          bucket-name: ${capacnan.buckets.credentials}
+          storage-type: file
+          description: "Claviger: The credentials store"
+
   log:
     category:
       "io.quarkus.rest.client.reactive":
