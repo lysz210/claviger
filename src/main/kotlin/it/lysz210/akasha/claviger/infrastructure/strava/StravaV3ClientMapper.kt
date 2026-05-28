@@ -40,11 +40,6 @@ class StravaV3ClientMapper {
                     authorizationCodeResponse.scope,
                 )
             ),
-            athlete = Athlete(
-                id = authorizationCodeResponse.athlete.id,
-                firstname = authorizationCodeResponse.athlete.firstname,
-                lastname = authorizationCodeResponse.athlete.lastname,
-            )
         )
     }
 

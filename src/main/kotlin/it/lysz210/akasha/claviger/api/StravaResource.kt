@@ -2,13 +2,8 @@ package it.lysz210.akasha.claviger.api
 
 import io.smallrye.mutiny.Uni
 import it.lysz210.akasha.claviger.domain.StravaOauthService
-import it.lysz210.akasha.claviger.domain.model.Athlete
-import jakarta.ws.rs.Consumes
-import jakarta.ws.rs.GET
-import jakarta.ws.rs.NotAuthorizedException
-import jakarta.ws.rs.Path
-import jakarta.ws.rs.Produces
-import jakarta.ws.rs.QueryParam
+import it.lysz210.akasha.claviger.domain.model.Key
+import jakarta.ws.rs.*
 import jakarta.ws.rs.core.Context
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.UriInfo
@@ -23,8 +18,7 @@ class StravaResource (
 ) {
 
     @GET
-    fun info(): Athlete = stravaAuthService.athlete
-        ?: throw NotAuthorizedException("Strava")
+    fun info(): Uni<Key> = stravaAuthService.key
 
     @GET
     @Path("/token")
