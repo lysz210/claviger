@@ -9,4 +9,6 @@ data class Oauth2Flow(
     val expiresAt: Instant,
     val tokenType: String,
     val scope: String,
-)
+) {
+    val expired: Boolean get() = expiresAt.isBefore(Instant.now())
+}

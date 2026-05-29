@@ -17,7 +17,7 @@ class StravaV3ClientMapper {
         tokenType = tokenType,
         refreshToken = tokenInfo.refreshToken,
         accessToken = tokenInfo.accessToken,
-        expiresAt = Instant.ofEpochSecond(tokenInfo.expiresIn.toLong()),
+        expiresAt = Instant.ofEpochSecond(tokenInfo.expiresAt),
         scope = scope
     )
     fun toDomain(old: Credential, tokenInfo: TokenInfo): Credential {

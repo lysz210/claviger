@@ -1,8 +1,9 @@
 package it.lysz210.akasha.claviger.api
 
 import io.smallrye.mutiny.Uni
+import it.lysz210.akasha.claviger.api.dto.CredentialResponse
+import it.lysz210.akasha.claviger.api.mapper.Mapper
 import it.lysz210.akasha.claviger.domain.StravaOauthService
-import it.lysz210.akasha.claviger.domain.model.Key
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.Context
 import jakarta.ws.rs.core.MediaType
@@ -14,15 +15,12 @@ import java.net.URI
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 class StravaResource (
-    private val stravaAuthService: StravaOauthService
+    private val stravaAuthService: StravaOauthService,
+    private val mapper: Mapper
 ) {
 
     @GET
-    fun info(): Uni<Key> = stravaAuthService.key
-
-    @GET
-    @Path("/token")
-    fun token() = stravaAuthService.credential
+    fun info(): Uni<CredentialResponse> = stravaAuthService.credential.map { mapper.toDto(it) }
 
     @GET
     @Path("/login")
