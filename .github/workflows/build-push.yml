@@ -22,15 +22,9 @@ jobs:
       # Required to emulate ARM64 architecture on standard GitHub runners
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
+
       - name: Checkout repository
         uses: actions/checkout@v6
-
-      - name: Set up JDK 25
-        uses: actions/setup-java@v5
-        with:
-          java-version: '25'
-          distribution: 'temurin'
-          cache: 'gradle'
 
       # Sets up Docker Buildx for multi-architecture image packaging
       - name: Set up Docker Buildx
@@ -42,7 +36,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./gradlew build \
-            -Dquarkus.native.enabled=true \
+            -Dquarkus.package.type=native \
             -Dquarkus.test.continuous-testing=disabled \
             -Dquarkus.native.container-build=true \
             -Dquarkus.native.container-runtime=docker \
