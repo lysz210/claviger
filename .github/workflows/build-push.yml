@@ -42,12 +42,10 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./gradlew build \
-            -Dquarkus.package.type=native \
+          ./gradlew buildNative \
             -Dquarkus.test.continuous-testing=disabled \
             -Dquarkus.native.container-build=true \
             -Dquarkus.native.builder-image=quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-25 \
-            -Dquarkus.native.builder-image-architecture=arm64
 
       # Logs into GitHub Container Registry using the built-in GitHub token
       - name: Log in to GitHub Container Registry
