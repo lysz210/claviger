@@ -60,8 +60,9 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./gradlew build -Dnative \
+          ./gradlew build \
             -Dquarkus.native.enabled=true
+            -Dquarkus.package.jar.enabled=false
             -Dquarkus.native.container-build=true \
             -Dquarkus.native.builder-image=quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-25 \
             -Dquarkus.docker.dockerfile-native-path=src/main/docker/Dockerfile.native-micro \
