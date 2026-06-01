@@ -29,6 +29,18 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
+      - name: Build Native App
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ./gradlew build \
+            -Dquarkus.package.type=nantive \
+            -Dquarkus.test.continuous-testing=disabled \
+            -Dquarkus.native.container-build=true \
+            -Dquarkus.native.builder-image=quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-25 \
+            -Dquarkus.native.builder-image-architecture=arm64
+
       # Required to emulate ARM64 architecture on standard GitHub runners
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
@@ -55,20 +67,13 @@ jobs:
             type=raw,value=latest
             type=sha,format=short
 
-      - name: Build Native App and Push Container
-        env:
-          GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          ./gradlew buildNative \
-            -Dquarkus.test.continuous-testing=disabled \
-            -Dquarkus.native.container-build=true \
-            -Dquarkus.native.builder-image=quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-25 \
-            -Dquarkus.docker.dockerfile-native-path=src/main/docker/Dockerfile.native-micro \
-            -Dquarkus.docker.buildx.platform=linux/arm64 \
-            -Dquarkus.container-image.build=true \
-            -Dquarkus.container-image.push=true \
-            -Dquarkus.container-image.registry=${{ env.REGISTRY }} \
-            -Dquarkus.container-image.group=${{ github.repository_owner }} \
-            -Dquarkus.container-image.name=${{ github.event.repository.name }} \
-            -Dquarkus.container-image.tag=latest
+      - name: Build and Push Container via Buildx
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: src/main/docker/Dockerfile.native-micro
+          platforms: linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+      
