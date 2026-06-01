@@ -29,6 +29,14 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
+      # Required to emulate ARM64 architecture on standard GitHub runners
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      # Sets up Docker Buildx for multi-architecture image packaging
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
       - name: Build Native App
         env:
           GITHUB_ACTOR: ${{ github.actor }}
@@ -40,14 +48,6 @@ jobs:
             -Dquarkus.native.container-build=true \
             -Dquarkus.native.builder-image=quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-25 \
             -Dquarkus.native.builder-image-architecture=arm64
-
-      # Required to emulate ARM64 architecture on standard GitHub runners
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v4
-
-      # Sets up Docker Buildx for multi-architecture image packaging
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v4
 
       # Logs into GitHub Container Registry using the built-in GitHub token
       - name: Log in to GitHub Container Registry
