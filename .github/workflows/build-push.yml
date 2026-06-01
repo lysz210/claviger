@@ -63,7 +63,7 @@ jobs:
           ./gradlew build -Dnative \
             -Dquarkus.native.container-build=true \
             -Dquarkus.native.builder-image=quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-25 \
-            -Dquarkus.docker.dockerfile=src/main/docker/Dockerfile.native \
+            -Dquarkus.docker.dockerfile-native-path=src/main/docker/Dockerfile.native-micro \
             -Dquarkus.docker.buildx.platform=linux/arm64 \
             -Dquarkus.container-image.build=true \
             -Dquarkus.container-image.push=true \
