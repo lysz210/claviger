@@ -45,7 +45,7 @@ jobs:
           ./gradlew buildNative \
             -Dquarkus.test.continuous-testing=disabled \
             -Dquarkus.native.container-build=true \
-            -Dquarkus.native.builder-image=quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-25 \
+            -Dquarkus.native.builder-image=quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:jdk-25@sha256:69bba29e3a6a9beea4d70b7410313f8c85741893e3d9dc563cb5303dfdf6cae4 \
 
       # Logs into GitHub Container Registry using the built-in GitHub token
       - name: Log in to GitHub Container Registry
