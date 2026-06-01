@@ -1,4 +1,4 @@
-name: Build and Push Native ARM64 Container
+name: Build and Push JVM ARM64 Container
 
 on:
   push:
@@ -6,22 +6,21 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  # This uses your github repository name in lowercase as the image name
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
-    # Permissions required to write images to GitHub Packages
     permissions:
       contents: read
       packages: write
 
     steps:
-      # Required to emulate ARM64 architecture on standard GitHub runners
+      # Required to build the final Docker image for Raspberry Pi (ARM64)
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
+
       - name: Checkout repository
         uses: actions/checkout@v6
 
@@ -32,23 +31,18 @@ jobs:
           distribution: 'temurin'
           cache: 'gradle'
 
-      - name: Build Native App
+      # Standard JVM build. Fast and platform-agnostic.
+      - name: Build JVM Jar
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          export DOCKER_DEFAULT_PLATFORM=linux/arm64
           ./gradlew build \
-            -Dquarkus.package.type=native \
-            -Dquarkus.test.continuous-testing=disabled \
-            -Dquarkus.native.container-build=true \
-            -Dquarkus.native.container-runtime=docker \
-            -Dquarkus.native.builder-image=quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:25.0.3.0-Final-java25-arm64
-      # Sets up Docker Buildx for multi-architecture image packaging
+            -Dquarkus.test.continuous-testing=disabled
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
-      # Logs into GitHub Container Registry using the built-in GitHub token
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v4
         with:
@@ -56,7 +50,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Convert repository name to lowercase to prevent Docker tagging issues
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v6
@@ -70,9 +63,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: src/main/docker/Dockerfile.native-micro
+          file: src/main/docker/Dockerfile.jvm
           platforms: linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      
