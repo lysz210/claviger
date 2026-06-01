@@ -7,6 +7,14 @@ plugins {
 repositories {
     mavenCentral()
     mavenLocal()
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/lysz210/quipus")
+        credentials {
+            username = System.getenv("GITHUB_ACTOR") ?: providers.gradleProperty("gpr.user").orNull
+            password = System.getenv("GITHUB_TOKEN") ?: providers.gradleProperty("gpr.key").orNull
+        }
+    }
 }
 
 val quarkusPlatformGroupId: String by project
