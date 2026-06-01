@@ -42,7 +42,8 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ./gradlew buildNative \
+          ./gradlew build \
+            -Dquarkus.native.enabled=true \
             -Dquarkus.test.continuous-testing=disabled \
             -Dquarkus.native.container-build=true \
             -Dquarkus.native.container-runtime=docker
