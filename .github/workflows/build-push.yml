@@ -19,6 +19,9 @@ jobs:
       packages: write
 
     steps:
+      # Required to emulate ARM64 architecture on standard GitHub runners
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
       - name: Checkout repository
         uses: actions/checkout@v6
 
@@ -28,10 +31,6 @@ jobs:
           java-version: '25'
           distribution: 'temurin'
           cache: 'gradle'
-
-      # Required to emulate ARM64 architecture on standard GitHub runners
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v4
 
       # Sets up Docker Buildx for multi-architecture image packaging
       - name: Set up Docker Buildx
@@ -46,7 +45,7 @@ jobs:
             -Dquarkus.native.enabled=true \
             -Dquarkus.test.continuous-testing=disabled \
             -Dquarkus.native.container-build=true \
-            -Dquarkus.native.container-runtime=docker
+            -Dquarkus.native.container-runtime=docker \
             -Dquarkus.native.builder-image=quay.io/quarkus/ubi9-quarkus-mandrel-builder-image:25.0.3.0-Final-java25-arm64 \
 
       # Logs into GitHub Container Registry using the built-in GitHub token
