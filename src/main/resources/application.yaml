@@ -1,10 +1,9 @@
 
-
-strava:
-  base-url: https://www.strava.com
+intervals:
+  base-url: https://intervals.icu
   oauth:
-    client-id: ${STRAVA_CLIENT_ID}
-    secret: ${STRAVA_CLIENT_SECRET}
+    client-id: ${INTERVALS_CLIENT_ID}
+    secret: ${INTERVALS_CLIENT_SECRET}
 
 capacnan:
   buckets:
@@ -14,8 +13,8 @@ quarkus:
   devservices:
     enabled: false
   rest-client:
-    strava-v3:
-      url: ${strava.base-url}
+    intervals:
+      url: ${intervals.base-url}
       logging:
         scope: all
         body-limit: 10240

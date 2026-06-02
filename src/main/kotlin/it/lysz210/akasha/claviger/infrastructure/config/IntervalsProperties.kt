@@ -1,11 +1,10 @@
-package it.lysz210.akasha.claviger.infrastructure.strava
+package it.lysz210.akasha.claviger.infrastructure.config
 
 import io.smallrye.config.ConfigMapping
 
-@ConfigMapping(prefix = "strava")
-interface StravaProperties {
+@ConfigMapping(prefix = "intervals")
+interface IntervalsProperties {
     fun baseUrl(): String
-
     fun oauth(): Oauth
 
     interface Oauth {

@@ -1,12 +1,12 @@
-package com.strava.api.v3.dto
+package icu.intervals.api.v1.dto
 
 import org.jboss.resteasy.reactive.RestForm
 
-class AuthorizationRefreshRequest(
+class AuthorizationCodeRequest(
     @field:RestForm("client_id") val clientId: String,
     @field:RestForm("client_secret") val clientSecret: String,
-    @field:RestForm("refresh_token") val refreshToken: String,
+    @field:RestForm("code") val code: String,
 ) {
     @RestForm("grant_type")
-    val grantType: String = "refresh_token"
+    val grantType: String = "authorization_code"
 }

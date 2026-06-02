@@ -6,7 +6,7 @@ import it.lysz210.akasha.capacnan.quipus.credentials.CredentialQuipu
 import it.lysz210.akasha.claviger.domain.exception.CredentialNotFoundException
 import it.lysz210.akasha.claviger.domain.model.Credential
 import it.lysz210.akasha.claviger.domain.model.Key
-import it.lysz210.akasha.claviger.infrastructure.strava.StravaProperties
+import it.lysz210.akasha.claviger.infrastructure.config.IntervalsProperties
 import jakarta.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
@@ -14,11 +14,11 @@ class CredentialsStore(
     private val capacnanProperties: CapacnanProperties,
     private val natsClient: Client,
     private val credentialsQuipucamayoc: CredentialsQuipucamayoc,
-    stravaProperties: StravaProperties,
+    intervalsProperties: IntervalsProperties,
 ) {
-    private val _key = Key("strava", stravaProperties.oauth().clientId())
+    private val _intervalKey = Key("intervals", intervalsProperties.oauth().clientId())
 
-    val stravaKey: Key get() = _key
+    val intervalsKey: Key get() = this._intervalKey
 
     fun put(credential: Credential): Uni<Long> {
         return natsClient.putValue(

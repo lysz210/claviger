@@ -24,10 +24,14 @@ class CredentialsQuipucamayoc(
                 serviceId = data.key.id
                 oauth2Flow = oauth2Flow {
                     accessToken = authentication.oauth2Flow.accessToken
-                    refreshToken = authentication.oauth2Flow.refreshToken
-                    expiresAt = timestamp {
-                        seconds = authentication.oauth2Flow.expiresAt.epochSecond
-                        nanos = authentication.oauth2Flow.expiresAt.nano
+                    if (authentication.oauth2Flow.refreshToken != null) {
+                        refreshToken = authentication.oauth2Flow.refreshToken
+                    }
+                    if (authentication.oauth2Flow.expiresAt != null) {
+                        expiresAt = timestamp {
+                            seconds = authentication.oauth2Flow.expiresAt.epochSecond
+                            nanos = authentication.oauth2Flow.expiresAt.nano
+                        }
                     }
                 }
             })
@@ -39,6 +43,11 @@ class CredentialsQuipucamayoc(
         val data = camayoc.untie(quipu)
         if (data.hasOauth2Flow()) {
             val oauth2Flow = data.oauth2Flow
+            val expireAt = if (oauth2Flow.hasExpiresAt()) {
+                oauth2Flow.expiresAt.let {
+                    Instant.ofEpochSecond(it.seconds, it.nanos.toLong())
+                }
+            } else { null }
             return Credential(
                 key = Key(
                     group = quipu.userId,
@@ -49,7 +58,7 @@ class CredentialsQuipucamayoc(
                         tokenType = oauth2Flow.tokenType,
                         accessToken = oauth2Flow.accessToken,
                         refreshToken = oauth2Flow.refreshToken,
-                        expiresAt = Instant.ofEpochSecond(oauth2Flow.expiresAt.seconds, oauth2Flow.expiresAt.nanos.toLong()),
+                        expiresAt = expireAt,
                         scope = oauth2Flow.scope,
                     )
                 )

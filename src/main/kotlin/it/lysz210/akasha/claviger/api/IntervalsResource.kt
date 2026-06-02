@@ -1,9 +1,8 @@
 package it.lysz210.akasha.claviger.api
 
 import io.smallrye.mutiny.Uni
-import it.lysz210.akasha.claviger.api.dto.CredentialResponse
 import it.lysz210.akasha.claviger.api.mapper.Mapper
-import it.lysz210.akasha.claviger.domain.StravaOauthService
+import it.lysz210.akasha.claviger.domain.IntervalsOauthService
 import jakarta.ws.rs.*
 import jakarta.ws.rs.core.Context
 import jakarta.ws.rs.core.MediaType
@@ -11,22 +10,23 @@ import jakarta.ws.rs.core.UriInfo
 import org.jboss.resteasy.reactive.RestResponse
 import java.net.URI
 
-@Path("/strava")
+@Path("/intervals")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-class StravaResource (
-    private val stravaAuthService: StravaOauthService,
+class IntervalsResource (
+    private val authService: IntervalsOauthService,
     private val mapper: Mapper
 ) {
 
     @GET
-    fun info(): Uni<CredentialResponse> = stravaAuthService.credential.map { mapper.toDto(it) }
+    @Path("")
+    fun info() = authService.credential.map { mapper.toDto(it) }
 
     @GET
     @Path("/login")
-    fun login(@Context uriInfo: UriInfo): Uni<RestResponse<URI>> = this.stravaAuthService.getAuthorizeUri(
-            uriInfo.resourceUri(StravaResource::class.java, "callback")
-        ).onItem().ifNull().continueWith { uriInfo.resourceUri(StravaResource::class.java) }
+    fun login(@Context uriInfo: UriInfo): Uni<RestResponse<URI>> = this.authService.getAuthorizeUri(
+            uriInfo.resourceUri(IntervalsResource::class.java, "callback")
+        ).onItem().ifNull().continueWith { uriInfo.resourceUri(IntervalsResource::class.java) }
         .map(RestResponse<URI>::seeOther)
 
     @GET
@@ -34,13 +34,13 @@ class StravaResource (
     fun callback(
         @QueryParam("code") code: String,
         @Context uriInfo: UriInfo,
-    ): Uni<RestResponse<URI>> = this.stravaAuthService.exchangeCodeForAccessToken(code)
-        .map{ uriInfo.resourceUri(StravaResource::class.java) }
+    ): Uni<RestResponse<URI>> = this.authService.exchangeCodeForAccessToken(code)
+        .map{ uriInfo.resourceUri(IntervalsResource::class.java) }
         .map(RestResponse<URI>::seeOther)
 
     @GET
     @Path("/revoke")
-    fun revoke(): Uni<String> = this.stravaAuthService.revoke()
+    fun revoke(): Uni<String> = this.authService.revoke()
 
 }
 
