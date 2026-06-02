@@ -10,6 +10,8 @@ capacnan:
     credentials: claviger
 
 quarkus:
+  http:
+    root-path: /claviger
   devservices:
     enabled: false
   rest-client:
