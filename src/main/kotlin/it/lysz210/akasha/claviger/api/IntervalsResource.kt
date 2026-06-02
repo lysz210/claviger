@@ -23,6 +23,11 @@ class IntervalsResource (
     fun info() = authService.credential.map { mapper.toDto(it) }
 
     @GET
+    @Path("/url/callback")
+    fun getUrlCallback(@Context uriInfo: UriInfo): String =
+        uriInfo.resourceUri(IntervalsResource::class.java, "callback").toString()
+
+    @GET
     @Path("/login")
     fun login(@Context uriInfo: UriInfo): Uni<RestResponse<URI>> = this.authService.getAuthorizeUri(
             uriInfo.resourceUri(IntervalsResource::class.java, "callback")
