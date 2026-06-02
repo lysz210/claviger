@@ -15,9 +15,6 @@ quarkus:
   rest-client:
     intervals:
       url: ${intervals.base-url}
-      logging:
-        scope: all
-        body-limit: 10240
   messaging:
     nats:
       connection:
@@ -31,10 +28,11 @@ quarkus:
 
 '%dev':
   quarkus:
-    #    compose:
-    #      devservices:
-    #        files:
-    #          - compose-nats.yml
+    rest-client:
+      intervals:
+        logging:
+          scope: all
+          body-limit: 10240
     log:
       #      level: DEBUG
       category:
