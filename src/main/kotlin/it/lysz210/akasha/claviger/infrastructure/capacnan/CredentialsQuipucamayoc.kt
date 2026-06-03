@@ -23,7 +23,9 @@ class CredentialsQuipucamayoc(
             return camayoc.tie(data.key.group, secretData {
                 serviceId = data.key.id
                 oauth2Flow = oauth2Flow {
+                    tokenType = authentication.oauth2Flow.tokenType
                     accessToken = authentication.oauth2Flow.accessToken
+                    scope = authentication.oauth2Flow.scope
                     if (authentication.oauth2Flow.refreshToken != null) {
                         refreshToken = authentication.oauth2Flow.refreshToken
                     }
