@@ -4,8 +4,10 @@ import com.google.protobuf.timestamp
 import it.lysz210.akasha.capacnan.quipus.credentials.CredentialQuipu
 import jakarta.enterprise.context.ApplicationScoped
 import it.lysz210.akasha.capacnan.quipus.credentials.Quipucamayoc
+import it.lysz210.akasha.capacnan.quipus.credentials.intervalsAthlete
 import it.lysz210.akasha.capacnan.quipus.credentials.oauth2Flow
 import it.lysz210.akasha.capacnan.quipus.credentials.secretData
+import it.lysz210.akasha.claviger.domain.model.Athlete
 import it.lysz210.akasha.claviger.domain.model.Authorization
 import it.lysz210.akasha.claviger.domain.model.Credential
 import it.lysz210.akasha.claviger.domain.model.Key
@@ -33,6 +35,12 @@ class CredentialsQuipucamayoc(
                         expiresAt = timestamp {
                             seconds = authentication.oauth2Flow.expiresAt.epochSecond
                             nanos = authentication.oauth2Flow.expiresAt.nano
+                        }
+                    }
+                    if (data.athlete != null) {
+                        intervalsAthlete = intervalsAthlete {
+                            id = data.athlete.id
+                            name = data.athlete.name.toString()
                         }
                     }
                 }
@@ -63,7 +71,10 @@ class CredentialsQuipucamayoc(
                         expiresAt = expireAt,
                         scope = oauth2Flow.scope,
                     )
-                )
+                ),
+                athlete = oauth2Flow.takeIf { it.hasIntervalsAthlete() }?.intervalsAthlete?.let {
+                    Athlete(it.id, it.name)
+                }
             )
         }
         throw IllegalArgumentException("unsupported.")
