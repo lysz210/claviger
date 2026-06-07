@@ -5,6 +5,7 @@ import io.nats.client.JetStreamApiException
 import io.nats.client.KeyValue
 import io.nats.client.api.KeyValueConfiguration
 import io.nats.client.api.StorageType
+import it.lysz210.akasha.capacnan.blueprint.CapacnanBlueprint
 import it.lysz210.akasha.capacnan.quipus.credentials.EncryptionStrategy
 import it.lysz210.akasha.capacnan.quipus.credentials.NoopEncryptionStrategy
 import it.lysz210.akasha.capacnan.quipus.credentials.Quipucamayoc
@@ -13,8 +14,9 @@ import jakarta.enterprise.inject.Produces
 
 @ApplicationScoped
 class Config (
-    private val capacnanProperties: CapacnanProperties
+    blueprint: CapacnanBlueprint
 ) {
+    private val bucketName = blueprint.security().kv().bucket()
 
     @Produces
     @ApplicationScoped
@@ -27,8 +29,6 @@ class Config (
     @Produces
     @ApplicationScoped
     fun credentialsBucket(nats: Connection): KeyValue {
-
-        val bucketName = capacnanProperties.buckets().credentials()
 
         try {
             nats.keyValueManagement().create(

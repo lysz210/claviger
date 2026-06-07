@@ -21,9 +21,14 @@ val quarkusPlatformGroupId: String by project
 val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
 
+val jetstreamVersion: String by project
+val quipusCredentialsVersion: String by project
+val chapacnanBlueprintVerion: String by project
+
 dependencies {
-    implementation("it.lysz210.akasha.capacnan.quipus:credentials:${properties["quipus.credentials.version"]}")
-    implementation("io.quarkiverse.reactivemessaging.nats-jetstream:quarkus-messaging-nats-jetstream:${properties["jetstream.version"]}")
+    implementation("it.lysz210.akasha.capacnan:blueprint:${chapacnanBlueprintVerion}")
+    implementation("it.lysz210.akasha.capacnan.quipus:credentials:${quipusCredentialsVersion}")
+    implementation("io.quarkiverse.reactivemessaging.nats-jetstream:quarkus-messaging-nats-jetstream:${jetstreamVersion}")
     implementation("io.quarkus:quarkus-rest-client-jackson")
     implementation("io.quarkus:quarkus-config-yaml")
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))

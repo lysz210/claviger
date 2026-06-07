@@ -5,11 +5,15 @@ intervals:
     client-id: ${INTERVALS_CLIENT_ID}
     secret: ${INTERVALS_CLIENT_SECRET}
 
-capacnan:
-  buckets:
-    credentials: claviger
-
 quarkus:
+  index-dependency:
+    bluepring:
+      group-id: it.lysz210.akasha.capacnan
+      artifact-id: blueprint
+  config:
+    locations:
+      - "${CAPACNAN_CONFIG_SERVER_URI:http://localhost:8000}/blueprint.yaml"
+
   devservices:
     enabled: false
   rest-client:
@@ -20,11 +24,6 @@ quarkus:
       connection:
         servers:
           - "${CAPACNAN_SERVER_URI:nats://localhost:4222}"
-      key-value-stores:
-        claviger:
-          bucket-name: ${capacnan.buckets.credentials}
-          storage-type: file
-          description: "Claviger: The credentials store"
 
 '%dev':
   quarkus:
