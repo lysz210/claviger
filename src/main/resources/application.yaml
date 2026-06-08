@@ -12,7 +12,7 @@ quarkus:
       artifact-id: blueprint
   config:
     locations:
-      - "${CAPACNAN_CONFIG_SERVER_URI:http://localhost:8000}/blueprint.yaml"
+      - "${CAPACNAN_BLUEPRINT_URI:}"
 
   devservices:
     enabled: false
