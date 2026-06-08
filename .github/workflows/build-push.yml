@@ -34,7 +34,6 @@ jobs:
       # Standard JVM build. Fast and platform-agnostic.
       - name: Build JVM Jar
         env:
-          CAPACNAN_CONFIG_SERVER_URI: "https://raw.githubusercontent.com/lysz210/capacnan/refs/heads/main/blueprint/src/main/resources"
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
