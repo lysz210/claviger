@@ -23,20 +23,24 @@ val quarkusPlatformVersion: String by project
 
 val jetstreamVersion: String by project
 val quipusCredentialsVersion: String by project
-val chapacnanBlueprintVerion: String by project
+val chapacnanBlueprintRootVerion: String by project
 
 dependencies {
-    implementation("it.lysz210.akasha.capacnan:blueprint:${chapacnanBlueprintVerion}")
-    implementation("it.lysz210.akasha.capacnan.quipus:credentials:${quipusCredentialsVersion}")
-    implementation("io.quarkiverse.reactivemessaging.nats-jetstream:quarkus-messaging-nats-jetstream:${jetstreamVersion}")
-    implementation("io.quarkus:quarkus-rest-client-jackson")
-    implementation("io.quarkus:quarkus-config-yaml")
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
-    implementation("io.quarkus:quarkus-rest-jackson")
     implementation("io.quarkus:quarkus-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.quarkus:quarkus-arc")
     implementation("io.quarkus:quarkus-rest")
+
+    implementation("io.quarkus:quarkus-rest-client-jackson")
+    implementation("io.quarkus:quarkus-config-yaml")
+    implementation("io.quarkus:quarkus-rest-jackson")
+
+    implementation("io.quarkiverse.reactivemessaging.nats-jetstream:quarkus-messaging-nats-jetstream:${jetstreamVersion}")
+
+    implementation("it.lysz210.akasha.capacnan:blueprint-root:${chapacnanBlueprintRootVerion}")
+    implementation("it.lysz210.akasha.capacnan.quipus:credentials:${quipusCredentialsVersion}")
+
     testImplementation("io.quarkus:quarkus-junit")
     testImplementation("io.rest-assured:rest-assured")
 }

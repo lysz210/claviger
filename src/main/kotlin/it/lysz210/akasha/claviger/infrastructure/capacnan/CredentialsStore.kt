@@ -2,7 +2,6 @@ package it.lysz210.akasha.claviger.infrastructure.capacnan
 
 import io.quarkiverse.reactive.messaging.nats.jetstream.client.Client
 import io.smallrye.mutiny.Uni
-import it.lysz210.akasha.capacnan.blueprint.CapacnanBlueprint
 import it.lysz210.akasha.capacnan.quipus.credentials.CredentialQuipu
 import it.lysz210.akasha.claviger.domain.exception.CredentialNotFoundException
 import it.lysz210.akasha.claviger.domain.model.Credential
@@ -15,9 +14,9 @@ class CredentialsStore(
     private val natsClient: Client,
     private val credentialsQuipucamayoc: CredentialsQuipucamayoc,
     intervalsProperties: IntervalsProperties,
-    blueprint: CapacnanBlueprint,
+    blueprint: CredentialsBlueprint,
 ) {
-    val bucketName = blueprint.security().kv().bucket()
+    val bucketName = blueprint.credentials().kv().bucket()
     private val _intervalKey = Key("intervals", intervalsProperties.oauth().clientId())
 
     val intervalsKey: Key get() = this._intervalKey

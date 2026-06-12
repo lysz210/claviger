@@ -5,14 +5,14 @@ intervals:
     client-id: ${INTERVALS_CLIENT_ID}
     secret: ${INTERVALS_CLIENT_SECRET}
 
+
 quarkus:
-  index-dependency:
-    bluepring:
-      group-id: it.lysz210.akasha.capacnan
-      artifact-id: blueprint
   config:
+#    mapping:
+#      validate-unknown: false
     locations:
-      - "${CAPACNAN_BLUEPRINT_URI:}"
+      - "${CAPACNAN_BLUEPRINT_ROOT_URI:}"
+      - "${CAPACNAN_BLUEPRINT_CREDENTIALS_URI:}"
 
   devservices:
     enabled: false
